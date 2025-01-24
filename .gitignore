@@ -1,8 +1,17 @@
-# تجاهل مجلد node_modules
-node_modules/
-
-# تجاهل ملف البيئة (Environment Variables)
+# تجاهل ملف .env
 .env
+
+# تجاهل مجلدات نظام Windows
+AppData/
+Cookies/
+Local Settings/
+My Documents/
+NetHood/
+PrintHood/
+Recent/
+SendTo/
+Start Menu/
+Templates/
 
 # تجاهل ملفات نظام التشغيل
 .DS_Store
@@ -11,12 +20,7 @@ Thumbs.db
 # تجاهل ملفات Logs
 *.log
 
-# تجاهل مجلدات نظام Windows
-AppData/
-Local/
-Temp/
-
-# تجاهل ملفات الإعدادات الشخصية لل IDE
+# تجاهل مجلدات IDE
 .vscode/
 .idea/
 
