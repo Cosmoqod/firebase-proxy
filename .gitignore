@@ -1,0 +1,34 @@
+# تجاهل مجلد node_modules
+node_modules/
+
+# تجاهل ملف البيئة (Environment Variables)
+.env
+
+# تجاهل ملفات نظام التشغيل
+.DS_Store
+Thumbs.db
+
+# تجاهل ملفات Logs
+*.log
+
+# تجاهل مجلدات نظام Windows
+AppData/
+Local/
+Temp/
+
+# تجاهل ملفات الإعدادات الشخصية لل IDE
+.vscode/
+.idea/
+
+# تجاهل ملفات البناء (Build Files)
+dist/
+build/
+out/
+
+# تجاهل ملفات npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# تجاهل ملفات الاختبارات
+coverage/
