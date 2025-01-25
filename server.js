@@ -14,3 +14,16 @@ const firebaseConfig = {
 // تهيئة Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+
+// مثال: جلب بيانات من Firebase
+const fetchData = async () => {
+  try {
+    const snapshot = await database.ref('path/to/data').once('value');
+    const data = snapshot.val();
+    console.log('Data:', data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+fetchData();
