@@ -1,36 +1,32 @@
 import { initializeApp, cert, getApps } from 'firebase-admin/app';
 import { getDatabase } from 'firebase-admin/database';
 
-// تحميل متغيرات البيئة
+// تحقق من وجود المتغيرات المطلوبة
+if (
+  !process.env.FIREBASE_PROJECT_ID ||
+  !process.env.FIREBASE_CLIENT_EMAIL ||
+  !process.env.FIREBASE_PRIVATE_KEY ||
+  !process.env.FIREBASE_DATABASE_URL
+) {
+  throw new Error('One or more Firebase environment variables are missing!');
+}
+
 const firebaseConfig = {
   credential: cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'), // استخدام optional chaining
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
   }),
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  databaseURL: process.env.FIREBASE_DATABASE_URL, // تأكد من وجود هذا الحقل
 };
 
-// التحقق من عدم وجود تطبيقات مسبقة
+// تهيئة التطبيق مرة واحدة فقط
 const apps = getApps();
-
-// تهيئة Firebase فقط إذا لم يتم التهيئة مسبقًا
 const app = apps.length === 0 ? initializeApp(firebaseConfig) : apps[0];
+
+// الحصول على مرجع لقاعدة البيانات
 const database = getDatabase(app);
 
-// (اختياري) نقل استدعاء fetchData إلى مكان مناسب حسب الحاجة
-// مثال: داخل route handler إذا كنت تستخدم Express
-const fetchData = async () => {
-  try {
-    const snapshot = await database.ref('path/to/data').once('value');
-    const data = snapshot.val();
-    console.log('Data:', data);
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
-};
-
-// تصدير الدوال اللازمة للاستخدام في routes
-export { fetchData };
+// (اختياري) تسجيل معلومات التهيئة للتأكد
+console.log('Firebase App Name:', app.name);
+console.log('Database URL:', process.env.FIREBASE_DATABASE_URL);
